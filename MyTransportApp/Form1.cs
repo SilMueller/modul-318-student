@@ -13,9 +13,9 @@ using System.Windows.Forms;
 
 namespace MyTransportApp
 {
-    public partial class Form : System.Windows.Forms.Form
+    public partial class Form1 : System.Windows.Forms.Form
     {
-        public Form()
+        public Form1()
         {
             InitializeComponent();
         }
@@ -27,8 +27,8 @@ namespace MyTransportApp
             {
                 combVon.Items.Clear();
                 combVon.Items.Add(combVon.Text);
-                SwissTransport.Core.ITransport transport = new SwissTransport.Core.Transport();
                 SwissTransport.Models.Stations stations = new SwissTransport.Models.Stations();
+                SwissTransport.Core.ITransport transport = new SwissTransport.Core.Transport();
                 stations = transport.GetStations(combVon.Text);
                 for (int i = 0; i < stations.StationList.Count; i++)
                 {
@@ -39,13 +39,13 @@ namespace MyTransportApp
 
         //Funktion um Vorschläge zu der eingegebenen Endstation zu bekommen
         private void combNach_DropDown(object sender, EventArgs e)
-        {
+        {   
             if (combNach.Text.Length >= 3)   
             {
                 combNach.Items.Clear();
                 combNach.Items.Add(combVon.Text);
-                SwissTransport.Core.ITransport transport = new SwissTransport.Core.Transport();
                 SwissTransport.Models.Stations stations = new SwissTransport.Models.Stations();
+                SwissTransport.Core.ITransport transport = new SwissTransport.Core.Transport();
                 stations = transport.GetStations(combNach.Text);
                 for (int i = 0; i < stations.StationList.Count; i++)
                 {
