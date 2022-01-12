@@ -35,7 +35,6 @@ namespace MyTransportApp
                     combVon.Items.Add(stations.StationList[i].Name);
                 }
             }
-            
         }
 
         //Funktion um Vorschläge zu der eingegebenen Endstation zu bekommen
@@ -60,23 +59,31 @@ namespace MyTransportApp
         {
             if(combNach.Text != "")
             {
-                dataGridConnections.Rows.Clear();
-                SwissTransport.Core.ITransport transport = new SwissTransport.Core.Transport();
-                SwissTransport.Models.Connections connections = new SwissTransport.Models.Connections();
-                connections = transport.GetConnections(combVon.Text, combNach.Text);
-                for (int i = 0; i < connections.ConnectionList.Count; i++)
+                try
                 {
-                    string[] text = new string[5];
-                    text[0] = connections.ConnectionList[i].From.Platform;
-                    text[1] = connections.ConnectionList[i].From.Departure.ToString();
-                    text[2] = connections.ConnectionList[i].To.Arrival.ToString();
-                    text[3] = Convert.ToString(connections.ConnectionList[i].To.Arrival - connections.ConnectionList[i].From.Departure);
-                    text[4] = Convert.ToString(connections.ConnectionList[i].From.Delay + " Minuten");
-                    if (Convert.ToString(connections.ConnectionList[i].From.Delay) == "")
+                    dataGridConnections.Rows.Clear();
+                    SwissTransport.Core.ITransport transport = new SwissTransport.Core.Transport();
+                    SwissTransport.Models.Connections connections = new SwissTransport.Models.Connections();
+                    connections = transport.GetConnections(combVon.Text, combNach.Text);
+                    for (int i = 0; i < connections.ConnectionList.Count; i++)
                     {
-                        text[4] = "Keine Verspätung";
+                        string[] text = new string[5];
+                        text[0] = connections.ConnectionList[i].From.Platform;
+                        text[1] = connections.ConnectionList[i].From.Departure.ToString();
+                        text[2] = connections.ConnectionList[i].To.Arrival.ToString();
+                        text[3] = Convert.ToString(connections.ConnectionList[i].To.Arrival - connections.ConnectionList[i].From.Departure);
+                        text[4] = Convert.ToString(connections.ConnectionList[i].From.Delay + " Minuten");
+                        if (Convert.ToString(connections.ConnectionList[i].From.Delay) == "")
+                        {
+                            text[4] = "Keine Verspätung";
+                        }
+                        dataGridConnections.Rows.Add(text);
                     }
-                    dataGridConnections.Rows.Add(text);
+                }
+                catch(System.ArgumentNullException)
+                {
+                    string fehler = "Sie müssen die Felder 'Von...' und 'Nach...' befüllen.";
+                    MessageBox.Show(fehler);
                 }
             }
             else
@@ -88,18 +95,26 @@ namespace MyTransportApp
         //Funktion um die Abfahrtstafel zu befüllen.
         public void fillListboxConnections(string fromName)
         {
-            listBoxConnections.Items.Clear();
-            SwissTransport.Core.ITransport transport = new SwissTransport.Core.Transport();
-            SwissTransport.Models.Connections connections = new SwissTransport.Models.Connections();
-            SwissTransport.Models.StationBoardRoot stationboardroot = new SwissTransport.Models.StationBoardRoot();
-            
-            stationboardroot = transport.GetStationBoard(combVon.Text, "0");
-            for(int i = 0; i < stationboardroot.Entries.Count; i++)
+            try
             {
-                string[] text = new string[2];
-                text[0] = Convert.ToString(stationboardroot.Station.Name);
-                text[1] = stationboardroot.Entries[i].To;
-                listBoxConnections.Items.Add(text[1]);
+                listBoxConnections.Items.Clear();
+                SwissTransport.Core.ITransport transport = new SwissTransport.Core.Transport();
+                SwissTransport.Models.Connections connections = new SwissTransport.Models.Connections();
+                SwissTransport.Models.StationBoardRoot stationboardroot = new SwissTransport.Models.StationBoardRoot();
+
+                stationboardroot = transport.GetStationBoard(combVon.Text, "0");
+                for (int i = 0; i < stationboardroot.Entries.Count; i++)
+                {
+                    string[] text = new string[2];
+                    text[0] = Convert.ToString(stationboardroot.Station.Name);
+                    text[1] = stationboardroot.Entries[i].To;
+                    listBoxConnections.Items.Add(text[1]);
+                }
+            }
+            catch (System.ArgumentNullException)
+            {
+                string fehler = "Sie müssen die Felder 'Von...' und 'Nach...' befüllen.";
+                MessageBox.Show(fehler);
             }
         }
 
