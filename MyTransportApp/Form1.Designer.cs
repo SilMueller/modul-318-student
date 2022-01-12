@@ -48,6 +48,7 @@
             this.combNach = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.btnChangeStations = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridConnections)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,9 +64,9 @@
             // 
             // btnSearchConnections
             // 
-            this.btnSearchConnections.Location = new System.Drawing.Point(401, 164);
+            this.btnSearchConnections.Location = new System.Drawing.Point(403, 133);
             this.btnSearchConnections.Name = "btnSearchConnections";
-            this.btnSearchConnections.Size = new System.Drawing.Size(177, 27);
+            this.btnSearchConnections.Size = new System.Drawing.Size(177, 32);
             this.btnSearchConnections.TabIndex = 3;
             this.btnSearchConnections.Text = "Verbindung suchen";
             this.btnSearchConnections.UseVisualStyleBackColor = true;
@@ -217,12 +218,23 @@
             this.label3.TabIndex = 16;
             this.label3.Text = "Nach...";
             // 
+            // btnChangeStations
+            // 
+            this.btnChangeStations.Location = new System.Drawing.Point(403, 171);
+            this.btnChangeStations.Name = "btnChangeStations";
+            this.btnChangeStations.Size = new System.Drawing.Size(177, 32);
+            this.btnChangeStations.TabIndex = 17;
+            this.btnChangeStations.Text = "Stationen tauschen";
+            this.btnChangeStations.UseVisualStyleBackColor = true;
+            this.btnChangeStations.Click += new System.EventHandler(this.btnChangeStations_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(615, 624);
+            this.Controls.Add(this.btnChangeStations);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.combNach);
@@ -268,6 +280,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColDelay;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnChangeStations;
     }
 }
 

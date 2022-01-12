@@ -35,6 +35,7 @@ namespace MyTransportApp
                     combVon.Items.Add(stations.StationList[i].Name);
                 }
             }
+            
         }
 
         //Funktion um Vorschläge zu der eingegebenen Endstation zu bekommen
@@ -105,6 +106,14 @@ namespace MyTransportApp
         private void Form_Load(object sender, EventArgs e)
         {
             tbxTime.Text = Convert.ToString(DateTime.Now.Hour) + ":" + Convert.ToString(DateTime.Now.Minute);
+        }
+
+        //Funktion um Start- und Endstation zu tauschen
+        private void btnChangeStations_Click(object sender, EventArgs e)
+        {
+            string tempStation = combVon.Text;
+            combVon.Text = combNach.Text;
+            combNach.Text = tempStation;
         }
     }
 }
